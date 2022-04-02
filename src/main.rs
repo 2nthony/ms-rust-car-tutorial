@@ -25,41 +25,22 @@ fn main() {
     let mut order = 1;
     let mut car: Car;
     let mut orders: HashMap<i32, Car> = HashMap::new();
+    let mut miles = 0;
 
-    car = car_factory(order, 1000);
-    orders.insert(order, car);
-    println!("car order {}: {:?}", order, orders.get(&order));
+    while order <= 11 {
+        car = car_factory(order, miles);
+        orders.insert(order, car);
+        println!("Car order {}: {:?}", order, orders.get(&order));
 
-    order += 1;
-    car = car_factory(order, 2000);
-    orders.insert(order, car);
-    println!("car order {}: {:?}", order, orders.get(&order));
+        if miles == 2100 {
+            miles = 0;
+        } else {
+            miles += 700;
+        }
+        order += 1;
+    }
 
-    order += 1;
-    car = car_factory(order, 0);
-    orders.insert(order, car);
-    println!("car order {}: {:?}", order, orders.get(&order));
-
-    order += 1;
-    car = car_factory(order, 0);
-    orders.insert(order, car);
-    println!("car order {}: {:?}", order, orders.get(&order));
-
-    // let mut car = Car {
-    //     color: "Blue".to_string(),
-    //     motor: Transmission::Manual,
-    //     roof: false,
-    //     age: (Age::New, 0),
-    // };
     let mut engine = Transmission::Manual;
-
-    // car = car_factory("Ornage".to_string(), engine, true, 0);
-
-    // engine = Transmission::SemiAuto;
-    // car = car_factory("Red".to_string(), engine, false, 565);
-
-    // engine = Transmission::Automatic;
-    // car = car_factory("White".to_string(), engine, true, 3000);
 }
 
 fn car_quality(miles: u32) -> (Age, u32) {
@@ -76,8 +57,8 @@ fn car_factory(order: i32, miles: u32) -> Car {
     let colors = ["Blue", "Green", "Red", "Silver"];
 
     let mut color = order as usize;
-    if color > 4 {
-        color = color - 4;
+    while color > 4 {
+        color -= 4;
     }
 
     let mut motor = Transmission::Manual;
